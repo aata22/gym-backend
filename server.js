@@ -18,6 +18,32 @@ const con = mysql.createConnection({
   database: process.env.MYSQL_DATABASE,
 });
 
+con.connect((err) => {
+  if (err) {
+    console.error('Error connecting to database:', err.stack);
+    return;
+  }
+  console.log('Connected to database as id', con.threadId);
+});
+
+// Add error event handler
+con.on('error', (err) => {
+  console.error('Database error:', err);
+});
+
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+  // Handle or gracefully exit as needed
+  process.exit(1); // Exit with failure
+});
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  // Handle or gracefully exit as needed
+});
+
+
 app.post('/submit', (req, res) => {
   const {name, day, taimi} = req.body;
   console.log(`Received data: ${name}, ${day}, ${taimi}`); // Add this line
