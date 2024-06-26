@@ -3,11 +3,13 @@ const app = express();
 const mysql = require('mysql2');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require("path");
 require("dotenv").config();
 
 app.use(cors());
 app.use(bodyParser.json()); // Middleware to parse JSON body
 
+app.use(express.static(path.join(__dirname, 'public')))
 
 const con = mysql.createConnection({
   host: process.env.MYSQL_HOST,
