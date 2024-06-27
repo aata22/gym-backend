@@ -12,10 +12,10 @@ app.use(bodyParser.json()); // Middleware to parse JSON body
 app.use(express.static(path.join(__dirname, 'public')))
 
 const con = mysql.createConnection({
-  host: process.env.MYSQL_HOST,
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE,
+  host: process.env.MYSQL_HOST || '127.0.0.1',
+  user: process.env.MYSQL_USER || 'root',
+  password: process.env.MYSQL_PASSWORD || 'Shaynema12*',
+  database: process.env.MYSQL_DATABASE || 'mydb',
 });
 
 con.connect((err) => {
